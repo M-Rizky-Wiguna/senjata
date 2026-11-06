@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": { "S": "minecraft:nether_star", "N": "minecraft:netherite_ingot", "B": "minecraft:blaze_rod" },
+  "pattern": ["NS ", "NB ", " B "],
+  "result": { "id": "legendweapons:legend_axe", "count": 1 }
+}

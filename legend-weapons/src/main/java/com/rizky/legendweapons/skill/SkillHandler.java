@@ -1,0 +1,60 @@
+package com.rizky.legendweapons.skill;
+
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
+import net.minecraft.world.World;
+
+/**
+ * Menangani pemakaian skill: cek cooldown, eksekusi, biaya durability, dan feedback.
+ */
+public final class SkillHandler {
+	private SkillHandler() {
+	}
+
+	public static ActionResult tryCast(World world, PlayerEntity player, Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
+
+		if (!(stack.getItem() instanceof SkillHolder holder)) {
+			return ActionResult.PASS;
+		}
+
+		Skill skill = holder.getSkill();
+
+		// Di sisi klien cukup laporkan sukses agar paket interaksi tetap dikirim ke server.
+		if (!(world instanceof ServerWorld serverWorld)) {
+			return ActionResult.SUCCESS;
+		}
+
+		if (player.isSpectator()) {
+			return ActionResult.FAIL;
+		}
+
+		if (player.getItemCooldownManager().isCoolingDown(stack)) {
+			float progress = player.getItemCooldownManager().getCooldownProgress(stack, 0.0F);
+			int seconds = Math.max(1, Math.round(progress * skill.cooldownTicks() / 20.0F));
+			player.sendMessage(Text.translatable("message.legendweapons.cooldown", seconds)
+				.formatted(Formatting.RED), true);
+			return ActionResult.FAIL;
+		}
+
+		if (!skill.cast(serverWorld, player, stack)) {
+			return ActionResult.FAIL;
+		}
+
+		player.getItemCooldownManager().set(stack, skill.cooldownTicks());
+
+		if (!player.isCreative()) {
+			EquipmentSlot slot = hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+			stack.damage(skill.durabilityCost(), player, slot);
+		}
+
+		player.swingHand(hand, true);
+		return ActionResult.SUCCESS;
+	}
+}

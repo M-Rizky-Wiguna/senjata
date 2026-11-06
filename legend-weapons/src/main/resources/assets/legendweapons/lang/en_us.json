@@ -1,0 +1,17 @@
+{
+  "item.legendweapons.flame_sword": "Eternal Flame Sword",
+  "item.legendweapons.thunder_sword": "Thunder Sword",
+  "item.legendweapons.legend_axe": "Legendary Axe",
+  "skill.legendweapons.inferno_slash": "Inferno Slash",
+  "skill.legendweapons.inferno_slash.desc": "Dash forward and ignite enemies in your path.",
+  "skill.legendweapons.chain_lightning": "Chain Lightning",
+  "skill.legendweapons.chain_lightning.desc": "Strike up to 4 nearby enemies with chained lightning.",
+  "skill.legendweapons.earthshatter": "Earthshatter",
+  "skill.legendweapons.earthshatter.desc": "Slam the ground, launching and slowing nearby enemies.",
+  "tooltip.legendweapons.activate": "Right-Click: %s",
+  "tooltip.legendweapons.cooldown": "Cooldown: %ss",
+  "tooltip.legendweapons.durability": "Durability: -%s",
+  "message.legendweapons.cooldown": "Skill on cooldown: %ss",
+  "message.legendweapons.no_target": "No enemies in range!",
+  "message.legendweapons.earthshatter_air": "Must be used while standing on the ground!"
+}

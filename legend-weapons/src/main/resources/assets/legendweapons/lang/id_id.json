@@ -1,0 +1,17 @@
+{
+  "item.legendweapons.flame_sword": "Pedang Api Abadi",
+  "item.legendweapons.thunder_sword": "Pedang Petir",
+  "item.legendweapons.legend_axe": "Kapak Penghancur",
+  "skill.legendweapons.inferno_slash": "Tebasan Api",
+  "skill.legendweapons.inferno_slash.desc": "Melesat ke depan dan membakar musuh di jalur.",
+  "skill.legendweapons.chain_lightning": "Petir Berantai",
+  "skill.legendweapons.chain_lightning.desc": "Menyambar hingga 4 musuh terdekat secara berantai.",
+  "skill.legendweapons.earthshatter": "Hentakan Bumi",
+  "skill.legendweapons.earthshatter.desc": "Menghantam tanah, melempar dan memperlambat musuh di sekitar.",
+  "tooltip.legendweapons.activate": "Klik Kanan: %s",
+  "tooltip.legendweapons.cooldown": "Cooldown: %ss",
+  "tooltip.legendweapons.durability": "Durabilitas: -%s",
+  "message.legendweapons.cooldown": "Skill masih cooldown: %ss",
+  "message.legendweapons.no_target": "Tidak ada musuh dalam jangkauan!",
+  "message.legendweapons.earthshatter_air": "Harus dipakai sambil berdiri di tanah!"
+}
