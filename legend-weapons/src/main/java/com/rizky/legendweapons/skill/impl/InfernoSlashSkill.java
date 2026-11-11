@@ -19,10 +19,10 @@ import java.util.Set;
  * Inferno Slash: dash ke depan sambil meninggalkan jejak api dan membakar musuh di jalur.
  */
 public final class InfernoSlashSkill implements Skill {
-	private static final double RANGE = 5.0;
+	private static final double RANGE = 10.0;
 	private static final double STEP = 0.5;
 	private static final double HIT_RADIUS = 1.6;
-	private static final float DAMAGE = 5.0F;
+	private static final float DAMAGE = 1000.0F;
 	private static final int FIRE_TICKS = 80;
 
 	@Override

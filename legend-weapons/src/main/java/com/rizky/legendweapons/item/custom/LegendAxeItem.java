@@ -4,7 +4,9 @@ import com.rizky.legendweapons.skill.Skill;
 import com.rizky.legendweapons.skill.SkillHandler;
 import com.rizky.legendweapons.skill.SkillHolder;
 import com.rizky.legendweapons.skill.SkillTooltip;
+import com.rizky.legendweapons.skill.UltimateHolder;
 import com.rizky.legendweapons.skill.impl.EarthshatterSkill;
+import com.rizky.legendweapons.skill.impl.TitanQuakeSkill;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -23,10 +25,11 @@ import java.util.function.Consumer;
 
 /**
  * Kapak Penghancur: knockback kuat, memperlambat dan melemahkan musuh.
- * Skill aktif: Earthshatter.
+ * Skill aktif: Earthshatter. Ultimate: Titan Quake.
  */
-public class LegendAxeItem extends AxeItem implements SkillHolder {
+public class LegendAxeItem extends AxeItem implements SkillHolder, UltimateHolder {
 	private static final Skill SKILL = new EarthshatterSkill();
+	private static final TitanQuakeSkill ULTIMATE = new TitanQuakeSkill();
 
 	public LegendAxeItem(ToolMaterial material, float attackDamage, float attackSpeed, Settings settings) {
 		super(material, attackDamage, attackSpeed, settings);
@@ -34,12 +37,21 @@ public class LegendAxeItem extends AxeItem implements SkillHolder {
 
 	@Override
 	public ActionResult use(World world, PlayerEntity user, Hand hand) {
+		if (user.isSneaking()) {
+			return SkillHandler.tryCastUltimate(world, user, hand);
+		}
+
 		return SkillHandler.tryCast(world, user, hand);
 	}
 
 	@Override
 	public Skill getSkill() {
 		return SKILL;
+	}
+
+	@Override
+	public TitanQuakeSkill getUltimate() {
+		return ULTIMATE;
 	}
 
 	@Override
@@ -56,5 +68,6 @@ public class LegendAxeItem extends AxeItem implements SkillHolder {
 	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent display,
 	                          Consumer<Text> tooltip, TooltipType type) {
 		SkillTooltip.append(stack, context, display, tooltip, type, SKILL);
+		SkillTooltip.appendUltimate(stack, context, display, tooltip, type, ULTIMATE);
 	}
 }

@@ -23,8 +23,14 @@ public final class ChainLightningSkill implements Skill {
 	private static final int MAX_TARGETS = 4;
 	private static final double SEARCH_RADIUS = 10.0;
 	private static final double CHAIN_RADIUS = 6.0;
-	private static final float BASE_DAMAGE = 6.0F;
-	private static final float MIN_DAMAGE = 2.0F;
+	private static final float BASE_DAMAGE = 6000.0F;
+	private static final float MIN_DAMAGE =1000.0F;
+	private static final ChainLightningSkill INSTANCE = new ChainLightningSkill();
+
+	public static ChainLightningSkill getInstance() {
+		return INSTANCE;
+		
+	}
 
 	@Override
 	public boolean cast(ServerWorld world, PlayerEntity player, ItemStack stack) {

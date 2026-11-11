@@ -28,4 +28,17 @@ public final class SkillTooltip {
 		tooltip.accept(Text.translatable("tooltip.legendweapons.durability", skill.durabilityCost())
 			.formatted(Formatting.DARK_GRAY));
 	}
+
+	public static void appendUltimate(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent display,
+	                                  Consumer<Text> tooltip, TooltipType type, UltimateSkill ultimate) {
+		tooltip.accept(Text.empty());
+		tooltip.accept(Text.translatable("tooltip.legendweapons.ultimate_activate",
+				Text.translatable(ultimate.nameKey()).formatted(Formatting.GOLD))
+			.formatted(Formatting.LIGHT_PURPLE));
+		tooltip.accept(Text.translatable(ultimate.descriptionKey()).formatted(Formatting.DARK_GRAY));
+		tooltip.accept(Text.translatable("tooltip.legendweapons.cooldown", ultimate.cooldownTicks() / 20)
+			.formatted(Formatting.DARK_GRAY));
+		tooltip.accept(Text.translatable("tooltip.legendweapons.durability", ultimate.durabilityCost())
+			.formatted(Formatting.DARK_GRAY));
+	}
 }

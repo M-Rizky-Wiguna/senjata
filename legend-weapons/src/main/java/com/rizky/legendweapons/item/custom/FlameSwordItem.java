@@ -4,7 +4,9 @@ import com.rizky.legendweapons.skill.Skill;
 import com.rizky.legendweapons.skill.SkillHandler;
 import com.rizky.legendweapons.skill.SkillHolder;
 import com.rizky.legendweapons.skill.SkillTooltip;
+import com.rizky.legendweapons.skill.UltimateHolder;
 import com.rizky.legendweapons.skill.impl.InfernoSlashSkill;
+import com.rizky.legendweapons.skill.impl.SolarNovaSkill;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,10 +24,11 @@ import java.util.function.Consumer;
 
 /**
  * Pedang Api Abadi: membakar musuh yang terkena serangan.
- * Skill aktif: Inferno Slash.
+ * Skill aktif: Inferno Slash. Ultimate: Solar Nova.
  */
-public class FlameSwordItem extends Item implements SkillHolder {
+public class FlameSwordItem extends Item implements SkillHolder, UltimateHolder {
 	private static final Skill SKILL = new InfernoSlashSkill();
+	private static final SolarNovaSkill ULTIMATE = new SolarNovaSkill();
 
 	public FlameSwordItem(Settings settings) {
 		super(settings);
@@ -33,12 +36,21 @@ public class FlameSwordItem extends Item implements SkillHolder {
 
 	@Override
 	public ActionResult use(World world, PlayerEntity user, Hand hand) {
+		if (user.isSneaking()) {
+			return SkillHandler.tryCastUltimate(world, user, hand);
+		}
+
 		return SkillHandler.tryCast(world, user, hand);
 	}
 
 	@Override
 	public Skill getSkill() {
 		return SKILL;
+	}
+
+	@Override
+	public SolarNovaSkill getUltimate() {
+		return ULTIMATE;
 	}
 
 	@Override
@@ -57,5 +69,6 @@ public class FlameSwordItem extends Item implements SkillHolder {
 	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent display,
 	                          Consumer<Text> tooltip, TooltipType type) {
 		SkillTooltip.append(stack, context, display, tooltip, type, SKILL);
+		SkillTooltip.appendUltimate(stack, context, display, tooltip, type, ULTIMATE);
 	}
 }

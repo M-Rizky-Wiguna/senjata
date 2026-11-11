@@ -4,7 +4,9 @@ import com.rizky.legendweapons.skill.Skill;
 import com.rizky.legendweapons.skill.SkillHandler;
 import com.rizky.legendweapons.skill.SkillHolder;
 import com.rizky.legendweapons.skill.SkillTooltip;
+import com.rizky.legendweapons.skill.UltimateHolder;
 import com.rizky.legendweapons.skill.impl.ChainLightningSkill;
+import com.rizky.legendweapons.skill.impl.StormWrathSkill;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
@@ -24,11 +26,12 @@ import java.util.function.Consumer;
 
 /**
  * Pedang Petir: peluang 25% menyambar musuh dengan petir.
- * Skill aktif: Chain Lightning.
+ * Skill aktif: Chain Lightning. Ultimate: Storm Wrath.
  */
-public class ThunderSwordItem extends Item implements SkillHolder {
+public class ThunderSwordItem extends Item implements SkillHolder, UltimateHolder {
 	private static final float LIGHTNING_CHANCE = 0.25F;
 	private static final Skill SKILL = new ChainLightningSkill();
+	private static final StormWrathSkill ULTIMATE = new StormWrathSkill();
 
 	public ThunderSwordItem(Settings settings) {
 		super(settings);
@@ -36,12 +39,21 @@ public class ThunderSwordItem extends Item implements SkillHolder {
 
 	@Override
 	public ActionResult use(World world, PlayerEntity user, Hand hand) {
+		if (user.isSneaking()) {
+			return SkillHandler.tryCastUltimate(world, user, hand);
+		}
+
 		return SkillHandler.tryCast(world, user, hand);
 	}
 
 	@Override
 	public Skill getSkill() {
 		return SKILL;
+	}
+
+	@Override
+	public StormWrathSkill getUltimate() {
+		return ULTIMATE;
 	}
 
 	@Override
@@ -61,5 +73,6 @@ public class ThunderSwordItem extends Item implements SkillHolder {
 	public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent display,
 	                          Consumer<Text> tooltip, TooltipType type) {
 		SkillTooltip.append(stack, context, display, tooltip, type, SKILL);
+		SkillTooltip.appendUltimate(stack, context, display, tooltip, type, ULTIMATE);
 	}
 }

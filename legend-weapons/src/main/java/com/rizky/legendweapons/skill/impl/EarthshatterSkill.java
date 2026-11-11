@@ -19,9 +19,9 @@ import net.minecraft.util.math.Vec3d;
  * Earthshatter: hantam tanah, lempar dan perlambat musuh di sekitar.
  */
 public final class EarthshatterSkill implements Skill {
-	private static final double RADIUS = 5.0;
-	private static final float DAMAGE = 6.0F;
-	private static final double KNOCK_UP = 0.65;
+	private static final double RADIUS = 7.0;
+	private static final float DAMAGE = 100.0F;
+	private static final double KNOCK_UP = 4.0;
 	private static final int SLOWNESS_TICKS = 100;
 
 	@Override

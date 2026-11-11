@@ -8,7 +8,8 @@
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
-    "main": ["com.rizky.legendweapons.LegendWeapons"]
+    "main": ["com.rizky.legendweapons.LegendWeapons"],
+    "client": ["com.rizky.legendweapons.client.LegendWeaponsClient"]
   },
   "depends": {
     "fabricloader": ">=0.18.1",
